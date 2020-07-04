@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30218.91
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{8EB54FEE-4199-40D7-B28B-1E4EACE4625A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrmSolution.Client.MobileApp.Android", "src\Client\CrmSolution.Client.MobileApp.Android\CrmSolution.Client.MobileApp.Android.csproj", "{9B2C26A7-828F-488D-A043-37C5D838D777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrmSolution.Client.MobileApp", "src\Client\CrmSolution.Client.MobileApp\CrmSolution.Client.MobileApp.csproj", "{94C70075-D61F-41F1-A3E1-0BBA1B196F30}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B2C26A7-828F-488D-A043-37C5D838D777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B2C26A7-828F-488D-A043-37C5D838D777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B2C26A7-828F-488D-A043-37C5D838D777}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9B2C26A7-828F-488D-A043-37C5D838D777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B2C26A7-828F-488D-A043-37C5D838D777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B2C26A7-828F-488D-A043-37C5D838D777}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{94C70075-D61F-41F1-A3E1-0BBA1B196F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C70075-D61F-41F1-A3E1-0BBA1B196F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94C70075-D61F-41F1-A3E1-0BBA1B196F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94C70075-D61F-41F1-A3E1-0BBA1B196F30}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B2C26A7-828F-488D-A043-37C5D838D777} = {8EB54FEE-4199-40D7-B28B-1E4EACE4625A}
+		{94C70075-D61F-41F1-A3E1-0BBA1B196F30} = {8EB54FEE-4199-40D7-B28B-1E4EACE4625A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4B0EC89-1525-4542-A15B-E751BEE42D9F}
+	EndGlobalSection
+EndGlobal

@@ -1,7 +1,6 @@
 ﻿using Bit.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CrmSolution.Client.MobileApp.Impl
 {

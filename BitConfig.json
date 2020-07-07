@@ -1,0 +1,18 @@
+﻿{
+  "BitCodeGeneratorConfigs": {
+    "BitCodeGeneratorMappings": [
+      {
+        "Route": "CrmSolutionV1",
+        "DestinationFileName": "CrmSolution.Model.Context",
+        "SourceProjects": [
+          {
+            "Name": "CrmSolution.Server.Api"
+          }
+        ],
+        "DestinationProject": {
+          "Name": "CrmSolution.Client.MobileApp"
+        }
+      }
+    ]
+  }
+}

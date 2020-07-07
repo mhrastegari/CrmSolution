@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Bit.Universal.Model" Version="5.5.0" />
+		<PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="5.5.0" />
+		<PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
+	</ItemGroup>
+
+</Project>

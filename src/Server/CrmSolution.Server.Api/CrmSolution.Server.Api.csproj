@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CrmSolution.Server.Data\CrmSolution.Server.Data.csproj" />
+		<PackageReference Include="Bit.Server.OData" Version="5.5.0" />
+		<PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="5.5.0" />
+		<PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="5.5.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
+	</ItemGroup>
+
+	<Import Project="..\..\Shared\CrmSolution.Shared.Dto\CrmSolution.Shared.Dto.projitems" Label="Shared" />
+
+</Project>

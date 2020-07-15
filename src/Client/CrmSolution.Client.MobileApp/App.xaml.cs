@@ -22,16 +22,24 @@ namespace CrmSolution.Client.MobileApp
             get { return (App)Application.Current; }
         }
 
-        public App()
-            : this(null)
+        public App() : this(null) { }
+
+        public App(IPlatformInitializer platformInitializer) : base(platformInitializer)
         {
             BitCSharpClientControls.XamlInit();
             BitApplication.XamlInit();
-        }
 
-        public App(IPlatformInitializer platformInitializer)
-            : base(platformInitializer)
-        {
+            Device.SetFlags(new[]
+            {
+                 "AppTheme_Experimental",
+                 "Shapes_Experimental",
+                 "Expander_Experimental",
+                 "CarouselView_Experimental",
+                 "IndicatorView_Experimental",
+                 "SwipeView_Experimental",
+                 "MediaElement_Experimental",
+                 "StateTriggers_Experimental"
+            });
         }
 
         protected override async Task OnInitializedAsync()
@@ -43,10 +51,15 @@ namespace CrmSolution.Client.MobileApp
             await base.OnInitializedAsync();
         }
 
-        protected override void RegisterTypes(IDependencyManager dependencyManager, IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
+        protected override void RegisterTypes(
+            IDependencyManager dependencyManager,
+            IContainerRegistry containerRegistry,
+            ContainerBuilder containerBuilder,
+            IServiceCollection services)
         {
             containerRegistry.RegisterForNav<NavigationPage>("Nav");
             containerRegistry.RegisterForNav<CustomersView, CustomersViewModel>("Customers");
+            containerRegistry.RegisterForNav<CustomerDetailView, CustomerDetailViewModel>("CustomerDetail");
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
                 AppName = "CrmSolution",

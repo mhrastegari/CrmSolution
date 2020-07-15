@@ -5,12 +5,103 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:CrmSolution.Shared.Dto;assembly=CrmSolution.Client.Dto"
+    xmlns:state="clr-namespace:Xamarin.Forms.StateSquid;assembly=Xamarin.Forms.StateSquid"
+    xmlns:vm="clr-namespace:CrmSolution.Client.MobileApp.ViewModel"
+    x:Name="customerView"
     Title="Customers"
+    x:DataType="vm:CustomersViewModel"
     mc:Ignorable="d">
-    <StackLayout>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="Customers"
-            VerticalOptions="CenterAndExpand" />
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding NewCustomerCommand}" Text="Add">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="Segoe MDL2 Assets"
+                    Glyph=""
+                    Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <StackLayout state:StateLayout.CurrentState="{Binding LoadingState}">
+        <state:StateLayout.StateViews>
+            <state:StateView RepeatCount="5" StateKey="Loading">
+                <state:StateView.RepeatTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal">
+                            <state:SkeletonView
+                                Margin="15"
+                                BackgroundColor="#cccccc"
+                                CornerRadius="30"
+                                HeightRequest="60"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="60" />
+                            <state:SkeletonView
+                                Margin="0,0,15,0"
+                                BackgroundColor="#cccccc"
+                                CornerRadius="6"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                    </DataTemplate>
+                </state:StateView.RepeatTemplate>
+            </state:StateView>
+        </state:StateLayout.StateViews>
+        <CollectionView ItemsSource="{Binding Customers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:CustomerDto">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                    BackgroundColor="OrangeRed"
+                                    Command="{Binding Path=BindingContext.DeleteCustomerCommand, Source={x:Reference customerView}}"
+                                    CommandParameter="{Binding .}"
+                                    IsDestructive="True"
+                                    Text="Delete">
+                                    <SwipeItem.IconImageSource>
+                                        <FontImageSource
+                                            FontFamily="Segoe MDL2 Assets"
+                                            Glyph=""
+                                            Size="16" />
+                                    </SwipeItem.IconImageSource>
+                                </SwipeItem>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid>
+                            <StackLayout Orientation="Horizontal">
+                                <Frame
+                                    Margin="15"
+                                    Padding="0"
+                                    BackgroundColor="#1AA09696"
+                                    CornerRadius="30"
+                                    HeightRequest="60"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60">
+                                    <Label
+                                        FontFamily="Segoe MDL2 Assets"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        Text=""
+                                        VerticalOptions="Center" />
+                                </Frame>
+                                <Label
+                                    FontSize="16"
+                                    Text="{Binding FirstName}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    FontSize="16"
+                                    Text="{Binding LastName}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </Grid>
+                        <SwipeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.CustomerDetailCommand, Source={x:Reference customerView}}" CommandParameter="{Binding .}" />
+                        </SwipeView.GestureRecognizers>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
 </ContentPage>

@@ -6,4 +6,16 @@
     xmlns:bitPrism="clr-namespace:Bit;assembly=Bit.Client.Xamarin.Prism"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" />
+    xmlns:view="clr-namespace:CrmSolution.Client.MobileApp.View"
+    mc:Ignorable="d">
+    <bitPrism:BitApplication.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="CornerRadius" Value="20" />
+            </Style>
+            <Color x:Key="PrimaryColor">#2196F3</Color>
+            <view:StateToBooleanConverter x:Key="StateToBooleanConverter" />
+        </ResourceDictionary>
+    </bitPrism:BitApplication.Resources>
+</bitPrism:BitApplication>

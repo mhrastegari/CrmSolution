@@ -16,5 +16,13 @@ namespace CrmSolution.Client.MobileApp.View
         {
             InitializeComponent();
         }
+
+        public class StateToBooleanConverter : ValueConverter<State, bool>
+        {
+            protected override bool Convert(State value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return value == State.Loading ? true : false;
+            }
+        }
     }
 }

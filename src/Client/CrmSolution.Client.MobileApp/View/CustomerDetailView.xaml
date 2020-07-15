@@ -1,15 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="CrmSolution.Client.MobileApp.View.CustomerDetailView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+<ContentPage
+    x:Class="CrmSolution.Client.MobileApp.View.CustomerDetailView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:state="clr-namespace:Xamarin.Forms.StateSquid;assembly=Xamarin.Forms.StateSquid"
+    xmlns:vm="clr-namespace:CrmSolution.Client.MobileApp.ViewModel"
+    x:Name="customerView"
+    Title="{Binding OperationKind, StringFormat='{0} Customer'}"
+    Padding="25"
+    x:DataType="vm:CustomerDetailViewModel"
+    mc:Ignorable="d">
+    <Grid>
+        <StackLayout state:StateLayout.CurrentState="{Binding LoadingState}">
+            <state:StateLayout.StateViews>
+                <state:StateView RepeatCount="2" StateKey="Loading">
+                    <state:StateView.RepeatTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Margin="0,40,0,-30"
+                                Orientation="Vertical"
+                                VerticalOptions="CenterAndExpand">
+                                <state:SkeletonView
+                                    Margin="10"
+                                    BackgroundColor="#cccccc"
+                                    CornerRadius="6"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </state:StateView.RepeatTemplate>
+                </state:StateView>
+            </state:StateLayout.StateViews>
+            <TableView Intent="Form">
+                <TableRoot>
+                    <TableSection Title="Name">
+                        <EntryCell Label="First name" Text="{Binding Customer.FirstName}" />
+                        <EntryCell Label="Last name" Text="{Binding Customer.LastName}" />
+                    </TableSection>
+                </TableRoot>
+            </TableView>
         </StackLayout>
-    </ContentPage.Content>
+        <StackLayout state:StateLayout.CurrentState="{Binding SaveState}" VerticalOptions="EndAndExpand">
+            <state:StateLayout.StateViews>
+                <state:StateView StateKey="Loading">
+                    <StackLayout
+                        Margin="20"
+                        HorizontalOptions="Center"
+                        Spacing="10"
+                        VerticalOptions="Center">
+                        <Label Text="Just a moment!" />
+                        <ActivityIndicator IsRunning="{Binding SaveState, Converter={StaticResource StateToBooleanConverter}}" Color="{StaticResource PrimaryColor}" />
+                    </StackLayout>
+                </state:StateView>
+            </state:StateLayout.StateViews>
+            <Button
+                Margin="15"
+                BackgroundColor="{StaticResource PrimaryColor}"
+                Command="{Binding SaveCustomerCommand}"
+                InputTransparent="{Binding SaveState, Converter={StaticResource StateToBooleanConverter}}"
+                Text="{Binding OperationKind}" />
+            <Button
+                Margin="15,0"
+                Command="{Binding CancelCommand}"
+                Text="Cancel" />
+        </StackLayout>
+    </Grid>
 </ContentPage>

@@ -2,48 +2,66 @@
 using CrmSolution.Shared.Dto;
 using Prism.Navigation;
 using Simple.OData.Client;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms.StateSquid;
 
 namespace CrmSolution.Client.MobileApp.ViewModel
 {
     public class CustomersViewModel : BitViewModelBase
     {
         public IODataClient ODataClient { get; set; }
+        public ObservableCollection<CustomerDto> Customers { get; set; } = new ObservableCollection<CustomerDto>();
 
-        public async override Task OnInitializeAsync(INavigationParameters parameters)
+        public BitDelegateCommand<CustomerDto> CustomerDetailCommand { get; set; }
+        public BitDelegateCommand NewCustomerCommand { get; set; }
+        public BitDelegateCommand<CustomerDto> DeleteCustomerCommand { get; set; }
+
+        public State LoadingState { get; set; }
+
+        public CustomersViewModel()
         {
-            /*CustomerDto customer1 = await ODataClient.Customers()
-                .Set(new CustomerDto { FirstName = "Ali", LastName = "Ahmadi" })
-                .InsertEntryAsync();
+            CustomerDetailCommand = new BitDelegateCommand<CustomerDto>(CustomerDetail);
+            NewCustomerCommand = new BitDelegateCommand(NewCustomer);
+            DeleteCustomerCommand = new BitDelegateCommand<CustomerDto>(DeleteItem);
+        }
 
-            CustomerDto customer2 = await ODataClient.Customers()
-                .Set(new CustomerDto { FirstName = "Reza", LastName = "Ahmadi" })
-                .InsertEntryAsync();
+        public async override Task OnNavigatedToAsync(INavigationParameters parameters)
+        {
+            try
+            {
+                await base.OnNavigatedToAsync(parameters);
+                if (parameters.GetNavigationMode() == NavigationMode.New)
+                {
+                    LoadingState = State.Loading;
+                }
+                Customers = new ObservableCollection<CustomerDto>((await ODataClient.Customers().FindEntriesAsync()).ToArray());
+            }
+            finally
+            {
+                LoadingState = State.None;
+            }
 
-            CustomerDto customer3 = await ODataClient.Customers()
-                .Set(new CustomerDto { FirstName = "Zahra", LastName = "Akbari" })
-                .InsertEntryAsync();
+        }
 
-            customer1.LastName = "Mohammadi";
-
+        private async Task DeleteItem(CustomerDto customer)
+        {
+            Customers.Remove(customer);
             await ODataClient.Customers()
-                .Key(customer1.Id)
-                .Set(customer1)
-                .UpdateEntryAsync();
+                .Key(customer.Id)
+                .Set(customer)
+                .DeleteEntryAsync();
+        }
 
-            CustomerDto[] customers = (await ODataClient.Customers()
-                .FindEntriesAsync()).ToArray();
+        public async Task CustomerDetail(CustomerDto customerDetail)
+        {
+            await NavigationService.NavigateAsync("CustomerDetail", ("customerDetail", customerDetail));
+        }
 
-            CustomerDto[] customers2 = (await ODataClient.Customers()
-                .Where(c => c.FirstName.Contains("ali") || c.LastName.Contains("ali"))
-                .FindEntriesAsync()).ToArray();*/
-
-            int result = await ODataClient.Customers()
-                .Sum(1, 2)
-                .ExecuteAsScalarAsync<int>();
-
-            await base.OnInitializeAsync(parameters);
+        public async Task NewCustomer()
+        {
+            await NavigationService.NavigateAsync("CustomerDetail", ("customers", Customers));
         }
     }
 }

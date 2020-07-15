@@ -10,7 +10,7 @@
     <StackLayout>
         <Label
             HorizontalOptions="CenterAndExpand"
-            Text="Customers..."
+            Text="Customers"
             VerticalOptions="CenterAndExpand" />
     </StackLayout>
 </ContentPage>
